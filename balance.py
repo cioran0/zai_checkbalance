@@ -26,9 +26,9 @@ if response.status_code == 200:
     # Extract and display relevant information
     if data.get('success') and 'data' in data:
         limits = data['data'].get('limits', [])
-        
+        level = data['data'].get('level')
         print("\n" + "="*60)
-        print("QUOTA SUMMARY")
+        print(f"QUOTA SUMMARY for == {level} == rank acct")
         print("="*60)
         
         for limit in limits:
