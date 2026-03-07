@@ -23,7 +23,7 @@ response = requests.get(monitor_url, headers=headers)
 print(f"Status Code: {response.status_code}")
 if response.status_code == 200:
     data = response.json()
-    print(json.dumps(data, indent=2))
+    #print(json.dumps(data, indent=2))
     
     # Extract and display relevant information
     if data.get('success') and 'data' in data:
@@ -65,17 +65,21 @@ print("NOTE: The quota/limit endpoint provides general quota information")
 print("but not model-specific token usage (like glm-4.7).")
 print("="*60)
 
+"""
 print("\n" + "="*60)
 print("MODEL USAGE ENDPOINT")
 print("="*60)
 
 # Try with different headers
 print("\nMethod 1: GET with different headers")
+"""
+
 headers_v2 = {
     "Authorization": f"Bearer {api_key}",
     "Content-Type": "application/json",
     "Accept": "application/json"
 }
+"""
 response = requests.get(model_url, headers=headers_v2)
 print(f"Status Code: {response.status_code}")
 print(f"Response text: {response.text}")
@@ -99,6 +103,7 @@ if response.text.strip():
         print(f"Error parsing JSON: {e}")
 
 print("\nMethod 3: Try with query parameters (correct format)")
+"""
 response = requests.get(model_url, headers=headers_v2, params={"startTime": "2026-03-01 00:00:00", "endTime": "2026-03-06 23:59:59"})
 print(f"Status Code: {response.status_code}")
 if response.text.strip():
@@ -131,7 +136,7 @@ if response.text.strip():
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
 
-print("\nMethod 4: Try with model parameter (glm-4.7 specific)")
+#print("\nMethod 4: Try with model parameter (glm-4.7 specific)")
 response = requests.get(model_url, headers=headers_v2, params={"startTime": "2026-03-01 00:00:00", "endTime": "2026-03-06 23:59:59", "model": "glm-4.7"})
 print(f"Status Code: {response.status_code}")
 if response.text.strip():
