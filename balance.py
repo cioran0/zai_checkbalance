@@ -5,6 +5,17 @@ import json
 from datetime import datetime, timezone
 from zai import ZaiClient
 
+# Check if .env exists, if not, prompt for API key and create it
+if not os.path.exists('.env'):
+    api_key_input = input("Enter your ZAI API key: ").strip()
+    if api_key_input:
+        with open('.env', 'w') as f:
+            f.write(f'ZAI_API_KEY="{api_key_input}"')
+        print(f".env file created with ZAI_API_KEY")
+    else:
+        print("No API key provided. Exiting.")
+        exit(1)
+
 load_dotenv()
 # Get API key from environment
 api_key = os.getenv("ZAI_API_KEY")
@@ -168,3 +179,6 @@ if response.text.strip():
             print(json.dumps(data, indent=2))
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
+
+# Keep window open until user presses a key
+input("\nPress Enter to exit...")
